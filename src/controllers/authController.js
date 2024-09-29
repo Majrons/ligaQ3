@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 
-const secretKey = 'supersecretkey';
+const secretKey = process.env.JWT_SECRET;
 
 exports.registerUser = [
     body('username').isLength({ min: 3 }),
