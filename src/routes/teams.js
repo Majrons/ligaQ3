@@ -6,5 +6,6 @@ const teamController = require('../controllers/teamController');
 router.post('/', teamController.addTeam);
 router.get('/', teamController.getTeams);
 router.put('/:id', teamController.updateTeam);
+router.get('/:id', teamController.getTeamById); // Dodajemy trasę do pobierania szczegółów drużyny
 
 module.exports = router;

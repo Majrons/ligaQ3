@@ -32,3 +32,14 @@ exports.updateTeam = async (req, res) => {
         res.status(500).json({ error: 'Nie udało się zaktualizować wyników' });
     }
 };
+
+exports.getTeamById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const team = await Team.findById(id);
+        if (!team) return res.status(404).json({ error: 'Drużyna nie znaleziona' });
+        res.status(200).json(team);
+    } catch (error) {
+        res.status(500).json({ error: 'Błąd serwera' });
+    }
+};
