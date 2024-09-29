@@ -1,0 +1,41 @@
+version: 2.1
+jobs:
+  build-prod:
+    docker:
+      - image: circleci/node:16-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "f8:a0:8d:17:08:ce:72:a6:fb:bb:fd:e1:c6:a5:e3:4a"
+      - restore_cache:
+          keys:
+            - npm-packages-{{ checksum "package-lock.json" }}
+            - npm-packages-
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          key: npm-packages-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - run: sudo apt install rsync
+      - run:
+          name: Build and upload application
+          command: |
+            rsync -avz --exclude-from .rsyncIgnore --delete -e "ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH}" ./ ${MYDEVIL_USER}@${MYDEVIL_HOST}:/home/${MYDEVIL_USER}/domains/liga-q3.pl/public_nodejs/
+    environment:
+      MYDEVIL_USER: webartstudio
+      MYDEVIL_HOST: s49.mydevil.net
+      SSH_KEY_PATH: ~/.ssh/id_rsa
+
+
+
+workflows:
+  build_and_deploy:
+    jobs:
+      - build-prod:
+          filters:
+            branches:
+              only: master

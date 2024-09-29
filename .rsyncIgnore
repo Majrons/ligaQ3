@@ -1,0 +1,12 @@
+.circleci/
+.git/
+.idea/
+public/
+tmp/
+build/
+.env
+.env.development
+.prettierrc
+.rsyncIgnore
+package.json
+package-lock.json
