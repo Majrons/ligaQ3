@@ -8,7 +8,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "f8:a0:8d:17:08:ce:72:a6:fb:bb:fd:e1:c6:a5:e3:4a"
+            - "wZOB6T82Um0GO9fKKncHPEC2cEZlMqRLhA5Wdr6FBsw"
       - restore_cache:
           keys:
             - npm-packages-{{ checksum "package-lock.json" }}
@@ -38,4 +38,4 @@ workflows:
       - build-prod:
           filters:
             branches:
-              only: master
+              only: main
