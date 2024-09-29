@@ -1,0 +1,38 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+
+# Logi
+logs
+*.log
+logs.zip
+
+# Katalog WebStorma
+.idea/
+
+# System operacyjny
+.DS_Store
+Thumbs.db
+
+# Pliki kompilacji
+dist/
+build/
+
+# Test Coverage
+coverage/
+
+# Bazy danych lokalne
+*.sqlite
+*.sql
+
+# Pliki tymczasowe
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Debugger V8 dla WebStorm
+.vscode/
