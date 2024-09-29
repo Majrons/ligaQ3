@@ -28,8 +28,8 @@ exports.addMatch = async (req, res) => {
         homeTeamExists.matchesPlayed += 1;
         awayTeamExists.matchesPlayed += 1;
 
-        await homeTeamExists.save();
         await awayTeamExists.save();
+        await homeTeamExists.save();
 
         res.status(201).json(newMatch);
     } catch (error) {
