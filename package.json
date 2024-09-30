@@ -1,13 +1,25 @@
 {
   "name": "ligaq3",
   "version": "1.0.0",
-  "description": "",
+  "description": "Small app to gather all league scores",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "engines": {
+    "node": "18.20.4",
+    "npm": "10.7.0"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "jwt",
+    "authentication",
+    "mongodb"
+  ],
+  "author": "Artur Muras",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
