@@ -49,3 +49,39 @@ exports.getMatchesByTeam = async (req, res) => {
         res.status(500).json({ error: 'Nie udało się pobrać meczów dla drużyny' });
     }
 };
+
+exports.updateMatch = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { homeTeam, awayTeam, homeScore, awayScore, players } = req.body;
+
+        const match = await Match.findById(id);
+        if (!match) return res.status(404).json({ error: 'Mecz nie znaleziony' });
+
+        match.homeTeam = homeTeam;
+        match.awayTeam = awayTeam;
+        match.homeScore = homeScore;
+        match.awayScore = awayScore;
+        match.players = players;
+
+        await match.save();
+        res.status(200).json(match);
+    } catch (error) {
+        res.status(500).json({ error: 'Nie udało się zaktualizować meczu' });
+    }
+};
+
+exports.deleteMatch = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const match = await Match.findByIdAndDelete(id);
+
+        if (!match) {
+            return res.status(404).json({ error: 'Nie znaleziono meczu' });
+        }
+
+        res.status(200).json({ message: 'Mecz został usunięty' });
+    } catch (error) {
+        res.status(500).json({ error: 'Nie udało się usunąć meczu' });
+    }
+};
