@@ -1,8 +1,9 @@
 version: 2.1
+
 jobs:
   build-prod:
     docker:
-      - image: cimg/node:18.20.4
+      - image: cimg/node:18.18.2  # Upewnij się, że używasz właściwej wersji Node.js
     working_directory: ~/repo
     steps:
       - checkout
@@ -28,8 +29,11 @@ jobs:
           command: |
             rsync -avz --exclude-from .rsyncIgnore --delete -e "ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH}" ./ ${MYDEVIL_USER}@${MYDEVIL_HOST}:/home/${MYDEVIL_USER}/domains/liga-q3.pl/public_nodejs/
       - run:
-          name: Restart Passenger
-          command: ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH} ${MYDEVIL_USER}@${MYDEVIL_HOST} "touch /home/${MYDEVIL_USER}/domains/liga-q3.pl/public_nodejs/tmp/restart.txt"
+          name: Install pm2 on the server
+          command: ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH} ${MYDEVIL_USER}@${MYDEVIL_HOST} "sudo npm install -g pm2"
+      - run:
+          name: Restart application with pm2
+          command: ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH} ${MYDEVIL_USER}@${MYDEVIL_HOST} "cd /home/${MYDEVIL_USER}/domains/liga-q3.pl/public_nodejs && pm2 start ecosystem.config.js --env production"
 
     environment:
       MYDEVIL_USER: webartstudio
