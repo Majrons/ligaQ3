@@ -23,17 +23,22 @@ jobs:
             - ~/.npm
       - run:
           name: Install rsync
-          command: sudo apt-get update && sudo apt-get install -y rsync
+          command: |
+            sudo apt update
+            sudo apt install rsync
+      - run:
+          name: Install pm2
+          command: |
+            sudo apt update
+            sudo npm i -g pm2
       - run:
           name: Build and upload application
           command: |
             rsync -avz --exclude-from .rsyncIgnore --delete -e "ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH}" ./ ${MYDEVIL_USER}@${MYDEVIL_HOST}:/home/${MYDEVIL_USER}/domains/liga-q3.pl/public_nodejs/
       - run:
-          name: Install pm2 on the server
-          command: ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH} ${MYDEVIL_USER}@${MYDEVIL_HOST} "sudo npm install -g pm2"
-      - run:
-          name: Restart application with pm2
-          command: ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH} ${MYDEVIL_USER}@${MYDEVIL_HOST} "cd /home/${MYDEVIL_USER}/domains/liga-q3.pl/public_nodejs && pm2 start ecosystem.config.js --env production"
+          name: Deploy to myDevil
+          command: |
+            pm2 restart ecosystem.config.js
 
     environment:
       MYDEVIL_USER: webartstudio
