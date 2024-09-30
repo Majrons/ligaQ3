@@ -1,6 +1,5 @@
 // controllers/playerController.js
 const Player = require('../models/Player');
-const Team = require('../models/Team');
 
 // controllers/playerController.js
 exports.addPlayer = async (req, res) => {
@@ -31,7 +30,7 @@ exports.deletePlayer = async (req, res) => {
 exports.getPlayersByTeam = async (req, res) => {
     try {
         const { teamId } = req.params;
-        const players = await Player.find({ team: teamId });
+        const players = await Player.find({ teamId: teamId }).exec();
 
         res.status(200).json(players);
     } catch (error) {
