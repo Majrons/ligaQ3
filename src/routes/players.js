@@ -4,7 +4,7 @@ const router = express.Router();
 const playerController = require('../controllers/playerController');
 
 // Endpoint do dodawania nowego gracza
-router.post('/', playerController.addPlayer);
+router.post('/team/:teamId', playerController.addPlayer);
 
 // Endpoint do pobierania graczy z danej drużyny
 router.get('/team/:teamId', playerController.getPlayersByTeam);
