@@ -9,6 +9,6 @@ router.post('/', playerController.addPlayer);
 // Endpoint do pobierania graczy z danej drużyny
 router.get('/team/:teamId', playerController.getPlayersByTeam);
 
-router.delete('/:playerId', playerController.deletePlayer);
+router.delete('/team/:playerId', playerController.deletePlayer);
 
 module.exports = router;
