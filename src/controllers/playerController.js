@@ -4,12 +4,12 @@ const Team = require('../models/Team');
 
 exports.addPlayer = async (req, res) => {
     try {
-        const { name, position, teamId, number } = req.body;
+        const { name } = req.body;
 
         const team = await Team.findById(teamId);
         if (!team) return res.status(404).json({ error: 'Drużyna nie znaleziona' });
 
-        const newPlayer = new Player({ name, position, team: teamId, number });
+        const newPlayer = new Player({ name });
         await newPlayer.save();
 
         res.status(201).json(newPlayer);
