@@ -5,6 +5,6 @@ const matchController = require('../controllers/matchController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 router.post('/', authMiddleware, matchController.addMatch);
-router.get('/:teamId', matchController.getMatchesByTeam);
+router.get('/team/:teamId', matchController.getMatchesByTeam);
 
 module.exports = router;
