@@ -23,5 +23,5 @@ app.use('/api/auth', require('./src/routes/auth'));
 app.use('/api/admin', require('./src/routes/admin'));
 
 // Uruchomienie serwera
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5555;
 app.listen(PORT, () => console.log(`Serwer działa na porcie ${PORT}`));
