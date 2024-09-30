@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-prod:
     docker:
-      - image: cimg/node:18.18.2  # Upewnij się, że używasz właściwej wersji Node.js
+      - image: cimg/node:18.18.2
     working_directory: ~/repo
     steps:
       - checkout

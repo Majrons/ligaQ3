@@ -17,6 +17,9 @@ exports.getTeams = async (req, res) => {
         const teams = await Team.find();
         res.status(200).json(teams);
     } catch (error) {
+        console.log({
+            errorZControllersTeam: error,
+        })
         res.status(500).json({ error: 'Nie udało się pobrać drużyn' });
     }
 };
