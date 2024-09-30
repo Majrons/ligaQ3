@@ -1,18 +1,11 @@
 // config/db.js
 const mongoose = require('mongoose');
 
-const dbUsername = encodeURIComponent('mo1028_ligaq3');
-const dbPassword = encodeURIComponent('@!L1g4Q3$#!!');
-const dbHost = 's49.mydevil.net';
-const dbName = 'mo1028_ligaq3';
-
-const DB_URI = `mongodb://${dbUsername}:${dbPassword}@${dbHost}:27017/${dbName}`;
-
-// const uri = process.env.DB_URI;
+const uri = process.env.DB_URI;
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(DB_URI, {
+        await mongoose.connect(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
