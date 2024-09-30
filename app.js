@@ -21,6 +21,7 @@ app.use('/api/teams', require('./src/routes/teams'));
 app.use('/api/matches', require('./src/routes/matches'));
 app.use('/api/auth', require('./src/routes/auth'));
 app.use('/api/admin', require('./src/routes/admin'));
+app.use('/api/players', require('./src/routes/players'));
 
 // Uruchomienie serwera
 const PORT = process.env.PORT || 5555;
