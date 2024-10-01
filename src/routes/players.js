@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const playerController = require('../controllers/playerController');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 // Endpoint do dodawania nowego gracza
 router.post('/', authMiddleware, playerController.addPlayer);
