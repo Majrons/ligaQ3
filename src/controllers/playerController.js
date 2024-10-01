@@ -4,7 +4,7 @@ const Player = require('../models/Player');
 // controllers/playerController.js
 exports.addPlayer = async (req, res) => {
     try {
-        const { name, teamId } = req.params;
+        const { name, teamId } = req.body;
         const newPlayer = new Player({ name, teamId });
         await newPlayer.save();
         res.status(201).json(newPlayer);

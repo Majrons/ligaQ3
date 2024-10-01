@@ -1,4 +1,3 @@
-// models/Match.js
 const mongoose = require('mongoose');
 
 const matchSchema = new mongoose.Schema({
@@ -6,6 +5,8 @@ const matchSchema = new mongoose.Schema({
     awayTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team', required: true },
     homeScore: { type: Number, required: true },
     awayScore: { type: Number, required: true },
+    homePlayers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
+    awayPlayers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
     date: { type: Date, default: Date.now }
 });
 
