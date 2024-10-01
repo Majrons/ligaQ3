@@ -90,6 +90,26 @@ exports.deleteMatch = async (req, res) => {
             return res.status(404).json({ error: 'Nie znaleziono meczu' });
         }
 
+        // Aktualizuj statystyki drużyn
+        const homeTeam = await Team.findById(match.homeTeam);
+        const awayTeam = await Team.findById(match.awayTeam);
+
+        if (homeTeam && awayTeam) {
+            homeTeam.matchesPlayed -= 1;
+            awayTeam.matchesPlayed -= 1;
+
+            if (match.homeScore > match.awayScore) {
+                homeTeam.wins -= 1;
+                awayTeam.losses -= 1;
+            } else if (match.homeScore < match.awayScore) {
+                homeTeam.losses -= 1;
+                awayTeam.wins -= 1;
+            }
+
+            await homeTeam.save();
+            await awayTeam.save();
+        }
+
         res.status(200).json({ message: 'Mecz został usunięty' });
     } catch (error) {
         res.status(500).json({ error: 'Nie udało się usunąć meczu' });
