@@ -46,3 +46,12 @@ exports.getTeamById = async (req, res) => {
         res.status(500).json({ error: 'Błąd serwera' });
     }
 };
+
+exports.resetAllTeams = async (req, res) => {
+    try {
+        await Team.updateMany({}, { $set: { wins: 0, losses: 0, matchesPlayed: 0 } });
+        res.status(200).json({ message: 'Tabela została wyzerowana' });
+    } catch (error) {
+        res.status(500).json({ error: 'Nie udało się wyzerować tabeli' });
+    }
+};

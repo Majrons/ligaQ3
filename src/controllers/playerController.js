@@ -19,7 +19,9 @@ exports.deletePlayer = async (req, res) => {
         const { playerId } = req.params;
         const player = await Player.findByIdAndDelete(playerId);
 
-        if (!player) return res.status(404).json({ error: 'Gracz nie został znaleziony' });
+        if (!player) {
+            return res.status(404).json({ error: 'Gracz nie został znaleziony' });
+        }
 
         res.status(200).json({ message: 'Gracz został usunięty' });
     } catch (error) {
