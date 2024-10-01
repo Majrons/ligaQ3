@@ -27,12 +27,12 @@ exports.getTeams = async (req, res) => {
 exports.updateTeam = async (req, res) => {
     try {
         const { id } = req.params;
-        const { wins, losses } = req.body;
-        const team = await Team.findByIdAndUpdate(id, { wins, losses, matchesPlayed: wins + losses }, { new: true });
+        const { name } = req.body; // Odbieranie nazwy zespołu z body requestu
+        const team = await Team.findByIdAndUpdate(id, { name }, { new: true });
         if (!team) return res.status(404).json({ error: 'Drużyna nie znaleziona' });
         res.status(200).json(team);
     } catch (error) {
-        res.status(500).json({ error: 'Nie udało się zaktualizować wyników' });
+        res.status(500).json({ error: 'Nie udało się zaktualizować nazwy drużyny' });
     }
 };
 
