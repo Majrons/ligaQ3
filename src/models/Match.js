@@ -5,8 +5,8 @@ const matchSchema = new mongoose.Schema({
     awayTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team', required: true },
     homeScore: { type: Number, required: true },
     awayScore: { type: Number, required: true },
-    homePlayers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
-    awayPlayers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
+    homePlayers: [{ type: mongoose.Schema.Types.String, ref: 'Player' }],
+    awayPlayers: [{ type: mongoose.Schema.Types.String, ref: 'Player' }],
     date: { type: Date, default: Date.now }
 });
 
