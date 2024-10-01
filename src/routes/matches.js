@@ -5,6 +5,7 @@ const matchController = require('../controllers/matchController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 router.post('/', authMiddleware, matchController.addMatch);
+router.get('/', matchController.getAllMatches);
 router.get('/team/:teamId', matchController.getMatchesByTeam);
 router.put('/:id', matchController.updateMatch);
 router.delete('/:id', matchController.deleteMatch);

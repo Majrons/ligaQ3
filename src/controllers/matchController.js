@@ -2,6 +2,15 @@
 const Match = require('../models/Match');
 const Team = require('../models/Team');
 
+exports.getAllMatches = async (req, res) => {
+    try {
+        const matches = await Match.find().populate('homeTeam awayTeam', 'name');
+        res.status(200).json(matches);
+    } catch (error) {
+        res.status(500).json({ error: 'Nie udało się pobrać wszystkich meczów' });
+    }
+};
+
 exports.addMatch = async (req, res) => {
     try {
         const { homeTeam, awayTeam, homeScore, awayScore, homePlayers, awayPlayers } = req.body;
