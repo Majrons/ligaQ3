@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
-const User = require('../models/User'); // Zakładam, że masz już model User
+const User = require('../models/User');
 
 // Dodawanie użytkownika
 exports.createUser = async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, role } = req.body;
 
     try {
         // Sprawdź, czy użytkownik o takiej nazwie już istnieje
@@ -15,8 +15,8 @@ exports.createUser = async (req, res) => {
         // Hashuj hasło
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Utwórz nowego użytkownika
-        const newUser = new User({ username, password: hashedPassword });
+        // Utwórz nowego użytkownika z rolą
+        const newUser = new User({ username, password: hashedPassword, role });
         await newUser.save();
 
         res.status(201).json({ message: 'Użytkownik utworzony pomyślnie', user: newUser });

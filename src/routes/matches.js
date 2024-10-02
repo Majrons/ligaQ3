@@ -2,9 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const matchController = require('../controllers/matchController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const verifyRole = require('../middlewares/authMiddleware');
 
-router.post('/', authMiddleware, matchController.addMatch);
+router.post('/', verifyRole, matchController.addMatch);
 router.get('/', matchController.getAllMatches);
 router.get('/team/:teamId', matchController.getMatchesByTeam);
 router.put('/:id', matchController.updateMatch);
