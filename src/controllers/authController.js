@@ -44,7 +44,7 @@ exports.loginUser = [
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) return res.status(400).json({ msg: 'Nieprawidłowe dane' });
 
-            const token = jwt.sign({ id: user._id }, secretKey, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user._id, role: user.role }, secretKey, { expiresIn: '1h' });
             res.json({ token });
         } catch (error) {
             res.status(500).json({ msg: 'Błąd serwera' });
