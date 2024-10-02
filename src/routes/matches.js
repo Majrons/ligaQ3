@@ -7,7 +7,7 @@ const verifyRole = require('../middlewares/authMiddleware');
 router.post('/', verifyRole, matchController.addMatch);
 router.get('/', matchController.getAllMatches);
 router.get('/team/:teamId', matchController.getMatchesByTeam);
-router.put('/:id', matchController.updateMatch);
-router.delete('/:id', matchController.deleteMatch);
+router.put('/:id', verifyRole(['admin']),  matchController.updateMatch);
+router.delete('/:id', verifyRole(['admin']), matchController.deleteMatch);
 
 module.exports = router;
