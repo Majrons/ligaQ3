@@ -1,5 +1,6 @@
 // controllers/teamController.js
 const Team = require('../models/Team');
+const Match = require('../models/Match');
 const { exec } = require('child_process');
 const path = require('path');
 
@@ -74,6 +75,7 @@ exports.resetAllTeams = async (req, res) => {
         await backupDatabase();
 
         await Team.updateMany({}, { $set: { wins: 0, losses: 0, matchesPlayed: 0 } });
+        await Match.deleteMany({});
         res.status(200).json({ message: 'Tabela została wyzerowana' });
     } catch (error) {
         res.status(500).json({ error: 'Nie udało się wyzerować tabeli' });
