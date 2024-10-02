@@ -39,6 +39,26 @@ exports.getTeamById = async (req, res) => {
     }
 };
 
+exports.getTeamsByMatchId = async (req, res) => {
+    try {
+        const { matchId } = req.params;
+
+        // Znajdź mecz na podstawie matchId
+        const match = await Match.findById(matchId).populate('homeTeam awayTeam');
+
+        if (!match) {
+            return res.status(404).json({ error: 'Mecz nie został znaleziony' });
+        }
+
+        const homeTeam = await Team.findById(match.homeTeam._id);
+        const awayTeam = await Team.findById(match.awayTeam._id);
+
+        res.status(200).json({ homeTeam, awayTeam });
+    } catch (error) {
+        res.status(500).json({ error: 'Błąd serwera podczas pobierania drużyn' });
+    }
+};
+
 exports.updateTeam = async (req, res) => {
     try {
         const { id } = req.params;
