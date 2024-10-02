@@ -1,5 +1,7 @@
 // controllers/teamController.js
 const Team = require('../models/Team');
+const { exec } = require('child_process');
+const path = require('path');
 
 exports.addTeam = async (req, res) => {
     try {
@@ -47,8 +49,30 @@ exports.updateTeam = async (req, res) => {
     }
 };
 
+const backupDatabase = () => {
+    const backupPath = path.join('/home/webartstudio/domains/liga-q3.pl/backups', `backup-${Date.now()}.gz`);
+    const dbUri = process.env.DB_URI;
+
+    const command = `mongodump --uri="${dbUri}" --gzip --archive=${backupPath}`;
+
+    return new Promise((resolve, reject) => {
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                console.error('Błąd podczas tworzenia zrzutu:', stderr);
+                reject(error);
+            } else {
+                console.log('Zrzut bazy danych zapisany w:', backupPath);
+                resolve(backupPath);
+            }
+        });
+    });
+};
+
+
 exports.resetAllTeams = async (req, res) => {
     try {
+        await backupDatabase();
+
         await Team.updateMany({}, { $set: { wins: 0, losses: 0, matchesPlayed: 0 } });
         res.status(200).json({ message: 'Tabela została wyzerowana' });
     } catch (error) {
