@@ -31,6 +31,7 @@ exports.getTeamById = async (req, res) => {
     try {
         const { id } = req.params;
         const team = await Team.findById(id);
+
         if (!team) return res.status(404).json({ error: 'Drużyna nie znaleziona' });
         res.status(200).json(team);
     } catch (error) {
