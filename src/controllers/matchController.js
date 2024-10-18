@@ -13,7 +13,7 @@ exports.getAllMatches = async (req, res) => {
 
 exports.addMatch = async (req, res) => {
     try {
-        const { homeTeam, awayTeam, homeScore, awayScore, homePlayers, awayPlayers } = req.body;
+        const { homeTeam, awayTeam, homeScore, awayScore, gameType, homePlayers, awayPlayers } = req.body;
 
         const homeTeamExists = await Team.findById(homeTeam);
         const awayTeamExists = await Team.findById(awayTeam);
@@ -22,7 +22,7 @@ exports.addMatch = async (req, res) => {
             return res.status(404).json({ error: 'Jedna lub obie drużyny nie zostały znalezione' });
         }
 
-        const newMatch = new Match({ homeTeam, awayTeam, homeScore, awayScore, homePlayers, awayPlayers });
+        const newMatch = new Match({ homeTeam, awayTeam, homeScore, awayScore, gameType, homePlayers, awayPlayers });
         await newMatch.save();
 
         // Aktualizacja statystyk drużyn
@@ -72,7 +72,7 @@ exports.getMatchesByTeam = async (req, res) => {
 exports.updateMatch = async (req, res) => {
     try {
         const { id } = req.params;
-        const { homeTeam, awayTeam, homeScore, awayScore, homePlayers, awayPlayers  } = req.body;
+        const { homeTeam, awayTeam, homeScore, awayScore, gameType, homePlayers, awayPlayers  } = req.body;
 
         const match = await Match.findById(id);
         if (!match) return res.status(404).json({ error: 'Mecz nie znaleziony' });
@@ -81,6 +81,7 @@ exports.updateMatch = async (req, res) => {
         match.awayTeam = awayTeam;
         match.homeScore = homeScore;
         match.awayScore = awayScore;
+        match.gameType = gameType;
         match.homePlayers = homePlayers;
         match.awayPlayers = awayPlayers;
 
