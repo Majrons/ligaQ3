@@ -46,6 +46,16 @@ exports.addMatch = async (req, res) => {
     }
 };
 
+exports.getMatchById = async (req, res) => {
+    try {
+        const match = await Match.findById(req.params.id).populate('homeTeam awayTeam');
+        if (!match) return res.status(404).json({ error: 'Mecz nie znaleziony' });
+        res.status(200).json(match);
+    } catch (error) {
+        res.status(500).json({ error: 'Błąd serwera' });
+    }
+};
+
 exports.getMatchesByTeam = async (req, res) => {
     try {
         const { teamId } = req.params;
