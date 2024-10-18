@@ -126,3 +126,23 @@ exports.deleteMatch = async (req, res) => {
         res.status(500).json({ error: 'Nie udało się usunąć meczu' });
     }
 };
+
+
+exports.getTdmMatches = async (req, res) => {
+    try {
+        const tdmMatches = await Match.find({ gameType: 'TDM' });
+        res.status(200).json(tdmMatches);
+    } catch (error) {
+        res.status(500).json({ error: 'Błąd serwera podczas pobierania meczów TDM' });
+    }
+};
+
+// Pobieranie meczów typu CTF
+exports.getCtfMatches = async (req, res) => {
+    try {
+        const ctfMatches = await Match.find({ gameType: 'CTF' });
+        res.status(200).json(ctfMatches);
+    } catch (error) {
+        res.status(500).json({ error: 'Błąd serwera podczas pobierania meczów CTF' });
+    }
+};
