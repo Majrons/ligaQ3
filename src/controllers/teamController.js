@@ -71,6 +71,17 @@ exports.updateTeam = async (req, res) => {
     }
 };
 
+exports.deleteTeam = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const team = await Team.findByIdAndDelete(id);
+        if (!team) return res.status(404).json({ error: 'Drużyna nie znaleziona' });
+        res.status(200).json('Drużyna usunięta');
+    } catch (error) {
+        res.status(500).json({ error: 'Nie udało się usunąć drużyny' });
+    }
+};
+
 const backupDatabase = () => {
     const backupPath = path.join('/home/webartstudio/domains/liga-q3.pl/backups', `backup-${Date.now()}.gz`);
     const dbUri = process.env.DB_URI;
