@@ -22,7 +22,19 @@ exports.addMatch = async (req, res) => {
             return res.status(404).json({ error: 'Jedna lub obie drużyny nie zostały znalezione' });
         }
 
-        const newMatch = new Match({ homeTeam, awayTeam, homeScore, awayScore, gameType, homePlayers, awayPlayers });
+        // Przygotowanie nowego meczu z danymi graczy i screenshotami
+        const newMatch = new Match({
+            homeTeam,
+            awayTeam,
+            homeScore,
+            awayScore,
+            gameType,
+            homePlayers: JSON.parse(homePlayers),
+            awayPlayers: JSON.parse(awayPlayers),
+            screenshot1: req.files['screenshot1'] ? req.files['screenshot1'][0].path : null,
+            screenshot2: req.files['screenshot2'] ? req.files['screenshot2'][0].path : null,
+        });
+
         await newMatch.save();
 
         // Aktualizacja statystyk drużyn
@@ -72,18 +84,23 @@ exports.getMatchesByTeam = async (req, res) => {
 exports.updateMatch = async (req, res) => {
     try {
         const { id } = req.params;
-        const { homeTeam, awayTeam, homeScore, awayScore, gameType, homePlayers, awayPlayers  } = req.body;
+        const { homeTeam, awayTeam, homeScore, awayScore, gameType, homePlayers, awayPlayers } = req.body;
 
         const match = await Match.findById(id);
         if (!match) return res.status(404).json({ error: 'Mecz nie znaleziony' });
 
+        // Aktualizacja pól meczu
         match.homeTeam = homeTeam;
         match.awayTeam = awayTeam;
         match.homeScore = homeScore;
         match.awayScore = awayScore;
         match.gameType = gameType;
-        match.homePlayers = homePlayers;
-        match.awayPlayers = awayPlayers;
+        match.homePlayers = JSON.parse(homePlayers);
+        match.awayPlayers = JSON.parse(awayPlayers);
+
+        // Aktualizacja screenshotów (jeśli są przesłane)
+        if (req.files['screenshot1']) match.screenshot1 = req.files['screenshot1'][0].path;
+        if (req.files['screenshot2']) match.screenshot2 = req.files['screenshot2'][0].path;
 
         await match.save();
         res.status(200).json(match);
@@ -91,6 +108,7 @@ exports.updateMatch = async (req, res) => {
         res.status(500).json({ error: 'Nie udało się zaktualizować meczu' });
     }
 };
+
 
 exports.deleteMatch = async (req, res) => {
     try {
