@@ -8,5 +8,3 @@ build/
 .env.development
 .prettierrc
 .rsyncIgnore
-package.json
-package-lock.json
