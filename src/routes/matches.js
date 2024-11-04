@@ -5,17 +5,15 @@ const multer = require('multer');
 const matchController = require('../controllers/matchController');
 const verifyRole = require('../middlewares/authMiddleware');
 
-// Ustawienia multer do przechowywania i walidacji plików
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Przechowywanie plików w folderze 'uploads'
+        cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname); // Unikalna nazwa pliku
+        cb(null, Date.now() + '-' + file.originalname);
     }
 });
 
-// Filtr plików, aby akceptować tylko JPG o rozmiarze do 1 MB
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
         cb(null, true);
@@ -30,11 +28,10 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-// Trasy związane z meczami
 router.post(
     '/',
     verifyRole(['admin', 'mod']),
-    upload.fields([{ name: 'screenshot1' }, { name: 'screenshot2' }]),
+    // upload.fields([{ name: 'screenshot1' }, { name: 'screenshot2' }]),
     matchController.addMatch
 );
 router.get('/', matchController.getAllMatches);
