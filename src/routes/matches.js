@@ -31,7 +31,7 @@ const upload = multer({
 router.post(
     '/',
     verifyRole(['admin', 'mod']),
-    // upload.fields([{ name: 'screenshot1' }, { name: 'screenshot2' }]),
+    upload.fields([{ name: 'screenshot1' }, { name: 'screenshot2' }]),
     matchController.addMatch
 );
 router.get('/', matchController.getAllMatches);

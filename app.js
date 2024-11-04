@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const connectDB = require('./src/config/db');
+const path = require('path');
 
 const app = express();
 
@@ -17,11 +18,16 @@ connectDB();
 app.use(cors(corsOptions));
 app.use(express.json());
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/teams', require('./src/routes/teams'));
 app.use('/api/matches', require('./src/routes/matches'));
 app.use('/api/auth', require('./src/routes/auth'));
 app.use('/api/admin', require('./src/routes/admin'));
 app.use('/api/players', require('./src/routes/players'));
+app.use((req, res, next) => {
+    console.log(`Żądanie: ${req.method} ${req.url}`);
+    next();
+});
 
 // Uruchomienie serwera
 const PORT = process.env.PORT || 5555;
