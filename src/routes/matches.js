@@ -31,15 +31,7 @@ const upload = multer({
 router.post(
     '/',
     verifyRole(['admin', 'mod']),
-    (req, res, next) => {
-        console.log('Przed multerem:', req.headers);
-        next();
-    },
     upload.fields([{ name: 'screenshot1', maxCount: 1 }, { name: 'screenshot2', maxCount: 1 }]),
-    (req, res, next) => {
-        console.log('Po multerze:', req.files);
-        next();
-    },
     matchController.addMatch
 );
 router.get('/', matchController.getAllMatches);
