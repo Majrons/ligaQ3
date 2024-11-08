@@ -7,8 +7,8 @@ const matchSchema = new mongoose.Schema({
     homeScore: { type: Number, required: true },
     awayScore: { type: Number, required: true },
     gameType: { type: String, enum: ['TDM', 'CTF'], required: true },
-    homePlayers: [{ type: mongoose.Schema.Types.String, ref: 'Player' }],
-    awayPlayers: [{ type: mongoose.Schema.Types.String, ref: 'Player' }],
+    homePlayers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
+    awayPlayers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
     screenshot1: { type: String, default: null },
     screenshot2: { type: String, default: null },
     date: { type: Date, default: Date.now }
