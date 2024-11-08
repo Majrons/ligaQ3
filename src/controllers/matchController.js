@@ -13,6 +13,9 @@ exports.getAllMatches = async (req, res) => {
 
 exports.addMatch = async (req, res) => {
     try {
+        console.log('Odebrane pliki:', req.files);
+        console.log('Odebrane dane:', req.body);
+
         const { homeTeam, awayTeam, homeScore, awayScore, gameType, homePlayers, awayPlayers } = req.body;
 
         const homeTeamExists = await Team.findById(homeTeam);
