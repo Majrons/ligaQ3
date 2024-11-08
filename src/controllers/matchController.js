@@ -22,6 +22,9 @@ exports.addMatch = async (req, res) => {
             return res.status(404).json({ error: 'Jedna lub obie drużyny nie zostały znalezione' });
         }
 
+        const homePlayersParsed = homePlayers ? JSON.parse(homePlayers) : [];
+        const awayPlayersParsed = awayPlayers ? JSON.parse(awayPlayers) : [];
+
         // Przygotowanie nowego meczu z danymi graczy i screenshotami
         const newMatch = new Match({
             homeTeam,
@@ -29,8 +32,8 @@ exports.addMatch = async (req, res) => {
             homeScore,
             awayScore,
             gameType,
-            homePlayers: JSON.parse(homePlayers),
-            awayPlayers: JSON.parse(awayPlayers),
+            homePlayers: homePlayersParsed,
+            awayPlayers: awayPlayersParsed,
             screenshot1: req.files['screenshot1'] ? req.files['screenshot1'][0].path : null,
             screenshot2: req.files['screenshot2'] ? req.files['screenshot2'][0].path : null,
         });
