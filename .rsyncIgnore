@@ -4,6 +4,7 @@
 public/
 tmp/
 build/
+uploads/
 .env
 .env.development
 .prettierrc
