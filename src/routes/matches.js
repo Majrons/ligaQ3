@@ -31,7 +31,7 @@ const upload = multer({
 router.post(
     '/',
     verifyRole(['admin', 'mod']),
-    upload.fields([{ name: 'screenshot1', maxCount: 1 }, { name: 'screenshot2', maxCount: 1 }]),
+    upload.fields([{ name: 'screenshot1', maxCount: 1 }, { name: 'screenshot2', maxCount: 1 }, { name: 'screenshot3', maxCount: 1 }]),
     matchController.addMatch
 );
 router.get('/', matchController.getAllMatches);
@@ -40,7 +40,7 @@ router.get('/:id', matchController.getMatchById);
 router.put(
     '/:id',
     verifyRole(['admin']),
-    upload.fields([{ name: 'screenshot1', maxCount: 1 }, { name: 'screenshot2', maxCount: 1 }]),
+    upload.fields([{ name: 'screenshot1', maxCount: 1 }, { name: 'screenshot2', maxCount: 1 }, { name: 'screenshot3', maxCount: 1 }]),
     matchController.updateMatch
 );
 router.delete('/:id', verifyRole(['admin']), matchController.deleteMatch);

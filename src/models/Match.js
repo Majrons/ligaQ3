@@ -11,6 +11,7 @@ const matchSchema = new mongoose.Schema({
     awayPlayers: [{ type: mongoose.Schema.Types.String, ref: 'Player' }],
     screenshot1: { type: String, default: null },
     screenshot2: { type: String, default: null },
+    screenshot3: { type: String, default: null },
     date: { type: Date, default: Date.now }
 });
 

@@ -33,6 +33,7 @@ exports.addMatch = async (req, res) => {
             awayPlayers: JSON.parse(awayPlayers),
             screenshot1: req.files['screenshot1'] ? req.files['screenshot1'][0].path : null,
             screenshot2: req.files['screenshot2'] ? req.files['screenshot2'][0].path : null,
+            screenshot3: req.files['screenshot3'] ? req.files['screenshot3'][0].path : null,
         });
 
         await newMatch.save();
@@ -102,6 +103,7 @@ exports.updateMatch = async (req, res) => {
         // Aktualizacja screenshotów (jeśli są przesłane)
         if (req.files['screenshot1']) match.screenshot1 = req.files['screenshot1'][0].path;
         if (req.files['screenshot2']) match.screenshot2 = req.files['screenshot2'][0].path;
+        if (req.files['screenshot3']) match.screenshot3 = req.files['screenshot3'][0].path;
 
         await match.save();
         res.status(200).json(match);
