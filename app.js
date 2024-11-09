@@ -18,7 +18,7 @@ connectDB();
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/uploads', express.static(path.join(__dirname, 'public_nodejs/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/teams', require('./src/routes/teams'));
 app.use('/api/matches', require('./src/routes/matches'));
 app.use('/api/auth', require('./src/routes/auth'));
