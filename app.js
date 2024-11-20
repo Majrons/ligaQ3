@@ -18,6 +18,12 @@ connectDB();
 app.use(cors(corsOptions));
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/teams', require('./src/routes/teams'));
 app.use('/api/matches', require('./src/routes/matches'));
