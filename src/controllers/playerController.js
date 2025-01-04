@@ -1,7 +1,5 @@
-// controllers/playerController.js
 const Player = require('../models/Player');
 
-// controllers/playerController.js
 exports.addPlayer = async (req, res) => {
     try {
         const { name, teamId } = req.body;
@@ -12,7 +10,6 @@ exports.addPlayer = async (req, res) => {
         res.status(500).json({ error: 'Nie udało się dodać gracza' });
     }
 };
-
 
 exports.deletePlayer = async (req, res) => {
     try {
