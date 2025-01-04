@@ -82,9 +82,10 @@ exports.deleteTeam = async (req, res) => {
     }
 };
 
-const backupDatabase = () => {
+exports.backupDatabase = () => {
     const backupPath = path.join('/home/webartstudio/domains/liga-q3.pl/backups', `backup-${Date.now()}.gz`);
-    const dbUri = process.env.DB_URI;
+    // const dbUri = process.env.DB_URI;
+    const dbUri = process.env.DB_URI_TEST;
 
     const command = `mongodump --uri="${dbUri}" --gzip --archive=${backupPath}`;
 
@@ -104,7 +105,7 @@ const backupDatabase = () => {
 
 exports.resetAllTeams = async (req, res) => {
     try {
-        await backupDatabase();
+        await this.backupDatabase();
 
         await Team.updateMany({}, { $set: { wins: 0, losses: 0, matchesPlayed: 0 } });
         await Match.deleteMany({});

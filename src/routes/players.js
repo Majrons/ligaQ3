@@ -5,11 +5,11 @@ const playerController = require('../controllers/playerController');
 const verifyRole = require('../middlewares/authMiddleware');
 
 // Endpoint do dodawania nowego gracza
-router.post('/', verifyRole(['admin']), playerController.addPlayer);
+router.post('/', verifyRole(['uberAdmin', 'admin']), playerController.addPlayer);
 
 // Endpoint do pobierania graczy z danej drużyny
 router.get('/team/:teamId', playerController.getPlayersByTeam);
 
-router.delete('/:playerId', verifyRole(['admin']), playerController.deletePlayer);
+router.delete('/:playerId', verifyRole(['uberAdmin', 'admin']), playerController.deletePlayer);
 
 module.exports = router;

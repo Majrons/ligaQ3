@@ -38,7 +38,6 @@ exports.addMatch = async (req, res) => {
 
         await newMatch.save();
 
-        // Aktualizacja statystyk drużyn
         if (homeScore > awayScore) {
             homeTeamExists.wins += 1;
             awayTeamExists.losses += 1;
@@ -91,7 +90,6 @@ exports.updateMatch = async (req, res) => {
         const match = await Match.findById(id);
         if (!match) return res.status(404).json({ error: 'Mecz nie znaleziony' });
 
-        // Aktualizacja pól meczu
         match.homeTeam = homeTeam;
         match.awayTeam = awayTeam;
         match.homeScore = homeScore;
@@ -100,7 +98,6 @@ exports.updateMatch = async (req, res) => {
         match.homePlayers = JSON.parse(homePlayers);
         match.awayPlayers = JSON.parse(awayPlayers);
 
-        // Aktualizacja screenshotów (jeśli są przesłane)
         if (req.files['screenshot1']) match.screenshot1 = req.files['screenshot1'][0].path;
         if (req.files['screenshot2']) match.screenshot2 = req.files['screenshot2'][0].path;
         if (req.files['screenshot3']) match.screenshot3 = req.files['screenshot3'][0].path;
@@ -122,7 +119,6 @@ exports.deleteMatch = async (req, res) => {
             return res.status(404).json({ error: 'Nie znaleziono meczu' });
         }
 
-        // Aktualizuj statystyki drużyn
         const homeTeam = await Team.findById(match.homeTeam);
         const awayTeam = await Team.findById(match.awayTeam);
 
@@ -148,7 +144,6 @@ exports.deleteMatch = async (req, res) => {
     }
 };
 
-
 exports.getTdmMatches = async (req, res) => {
     try {
         const tdmMatches = await Match.find({ gameType: 'TDM' });
@@ -158,7 +153,6 @@ exports.getTdmMatches = async (req, res) => {
     }
 };
 
-// Pobieranie meczów typu CTF
 exports.getCtfMatches = async (req, res) => {
     try {
         const ctfMatches = await Match.find({ gameType: 'CTF' });

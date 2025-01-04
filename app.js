@@ -25,6 +25,7 @@ app.use('/api/matches', require('./src/routes/matches'));
 app.use('/api/auth', require('./src/routes/auth'));
 app.use('/api/admin', require('./src/routes/admin'));
 app.use('/api/players', require('./src/routes/players'));
+app.use('/api/archive', require('./src/routes/archive'));
 
 app.use((req, res, next) => {
     console.log(`Żądanie: ${req.method} ${req.url}`);

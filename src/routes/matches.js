@@ -30,7 +30,7 @@ const upload = multer({
 
 router.post(
     '/',
-    verifyRole(['admin', 'mod']),
+    verifyRole(['uberAdmin', 'admin', 'mod']),
     upload.fields([{ name: 'screenshot1', maxCount: 1 }, { name: 'screenshot2', maxCount: 1 }, { name: 'screenshot3', maxCount: 1 }]),
     matchController.addMatch
 );
@@ -39,11 +39,11 @@ router.get('/team/:teamId', matchController.getMatchesByTeam);
 router.get('/:id', matchController.getMatchById);
 router.put(
     '/:id',
-    verifyRole(['admin']),
+    verifyRole(['uberAdmin']),
     upload.fields([{ name: 'screenshot1', maxCount: 1 }, { name: 'screenshot2', maxCount: 1 }, { name: 'screenshot3', maxCount: 1 }]),
     matchController.updateMatch
 );
-router.delete('/:id', verifyRole(['admin']), matchController.deleteMatch);
+router.delete('/:id', verifyRole(['uberAdmin', 'admin']), matchController.deleteMatch);
 router.get('/tdm', matchController.getTdmMatches);
 router.get('/ctf', matchController.getCtfMatches);
 
