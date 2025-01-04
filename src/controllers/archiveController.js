@@ -52,6 +52,9 @@ exports.archiveQuarter = async (req, res) => {
                 gameType: match.gameType,
                 homePlayers: match.homePlayers,
                 awayPlayers: match.awayPlayers,
+                screenshot1: match.screenshot1,
+                screenshot2: match.screenshot2,
+                screenshot3: match.screenshot3,
                 date: match.date,
             })),
         });

@@ -84,8 +84,8 @@ exports.deleteTeam = async (req, res) => {
 
 exports.backupDatabase = () => {
     const backupPath = path.join('/home/webartstudio/domains/liga-q3.pl/backups', `backup-${Date.now()}.gz`);
-    // const dbUri = process.env.DB_URI;
-    const dbUri = process.env.DB_URI_TEST;
+    const dbUri = process.env.DB_URI;
+    // const dbUri = process.env.DB_URI_TEST;
 
     const command = `mongodump --uri="${dbUri}" --gzip --archive=${backupPath}`;
 
