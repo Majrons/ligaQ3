@@ -19,6 +19,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/mapy', express.static(path.join(__dirname, 'mapy')));
 
 app.use('/api/teams', require('./src/routes/teams'));
 app.use('/api/matches', require('./src/routes/matches'));
