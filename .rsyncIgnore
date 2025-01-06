@@ -5,6 +5,7 @@ public/
 tmp/
 build/
 uploads/
+mapy/
 .env
 .env.development
 .prettierrc
